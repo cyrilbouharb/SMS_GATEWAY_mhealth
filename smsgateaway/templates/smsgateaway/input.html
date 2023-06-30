@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 50vh;">
+  <form method="POST" action="{% url 'smsgateaway:input' %}">
+    {% csrf_token %}
+    <h1> <ion-icon name="send" class="small-icon"></ion-icon> Gateway</h1>
+    <style>
+    .small-icon {
+      font-size: 25px; 
+    }
+  </style>
+    <div>
+      <label for="phone_number">Phone Number:</label>
+      <br>
+      <input type="text" name="phone_number" id="phone_number">
+    </div>
+    <br>
+    <div style="display: flex; justify-content: center;">
+      <input class="btn btn-primary" type="submit" value="Search">
+    </div>
+  </form>
+  
+  {% if messages %}
+    <div class="messages" style="text-align: center; margin-top: 10px;">
+      {% for message in messages %}
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %} style="font-weight: bold; color: red;">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
